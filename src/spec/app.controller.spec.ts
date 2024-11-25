@@ -8,7 +8,7 @@ jest.mock('../utils/luhnCheck');
 describe('AppController', () => {
   let appController: AppController;
 
-  const exampleNumber = '0';
+  const exampleNumber = { candidate: '0' };
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -26,7 +26,7 @@ describe('AppController', () => {
         .mockReturnValue(true);
 
       const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber);
+      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber.candidate);
       expect(result).toEqual({ cardIsValid: true });
     });
 
@@ -36,7 +36,7 @@ describe('AppController', () => {
         .mockReturnValue(false);
 
       const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber);
+      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber.candidate);
       expect(result).toEqual({ cardIsValid: false });
     });
   });
