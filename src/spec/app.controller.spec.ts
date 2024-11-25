@@ -20,7 +20,7 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should call luhnCheck with "0" and return { cardIsValid: true }', () => {
+    it('should call luhnCheck with controller input and return luhnCheck result when true', () => {
       const luhnCheckSpy = jest
         .spyOn(luhnUtils, 'luhnCheck')
         .mockReturnValue(true);
@@ -30,7 +30,7 @@ describe('AppController', () => {
       expect(result).toEqual({ cardIsValid: true });
     });
 
-    it('should call luhnCheck with "0" and return { cardIsValid: false }', () => {
+    it('should call luhnCheck with controller input and return luhnCheck result when false }', () => {
       const luhnCheckSpy = jest
         .spyOn(luhnUtils, 'luhnCheck')
         .mockReturnValue(false);
