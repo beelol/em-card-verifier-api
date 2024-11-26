@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from '../app.controller';
 import { AppService } from '../app.service';
-import * as luhnUtils from '../utils/luhnCheck';
+import * as verifyCreditCardUtils from '../utils/verifyCreditCard';
 
-jest.mock('../utils/luhnCheck');
+jest.mock('../utils/verifyCreditCard');
 
 describe('AppController', () => {
   let appController: AppService;
@@ -20,23 +20,23 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should call luhnCheck with "0" and return true', () => {
-      const luhnCheckSpy = jest
-        .spyOn(luhnUtils, 'luhnCheck')
+    it('should call verifyCreditCard with "0" and return true', () => {
+      const verifyCreditCardSpy = jest
+        .spyOn(verifyCreditCardUtils, 'verifyCreditCard')
         .mockReturnValue(true);
 
       const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber);
+      expect(verifyCreditCardSpy).toHaveBeenCalledWith(exampleNumber);
       expect(result).toBe(true);
     });
 
-    it('should call luhnCheck with "0" and return false', () => {
-      const luhnCheckSpy = jest
-        .spyOn(luhnUtils, 'luhnCheck')
+    it('should call verifyCreditCard with "0" and return false', () => {
+      const verifyCreditCardSpy = jest
+        .spyOn(verifyCreditCardUtils, 'verifyCreditCard')
         .mockReturnValue(false);
 
       const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber);
+      expect(verifyCreditCardSpy).toHaveBeenCalledWith(exampleNumber);
       expect(result).toBe(false);
     });
   });

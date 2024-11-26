@@ -1,14 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from '../app.controller';
 import { AppService } from '../app.service';
-import * as luhnUtils from '../utils/luhnCheck';
-
-jest.mock('../utils/luhnCheck');
 
 describe('AppController', () => {
   let appController: AppController;
-
-  const exampleNumber = { candidate: '0' };
+  let appService: AppService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -17,27 +13,19 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
+    appService = app.get<AppService>(AppService);
   });
 
-  describe('root', () => {
-    it('should call luhnCheck with controller input and return luhnCheck result when true', () => {
-      const luhnCheckSpy = jest
-        .spyOn(luhnUtils, 'luhnCheck')
+  describe('verifyCreditCard', () => {
+    it('should transform input and delegate to service', () => {
+      const serviceSpy = jest
+        .spyOn(appService, 'verifyCreditCard')
         .mockReturnValue(true);
 
-      const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber.candidate);
+      const result = appController.verifyCreditCard({ candidate: '4532' });
+
+      expect(serviceSpy).toHaveBeenCalledWith('4532');
       expect(result).toEqual({ cardIsValid: true });
-    });
-
-    it('should call luhnCheck with controller input and return luhnCheck result when false }', () => {
-      const luhnCheckSpy = jest
-        .spyOn(luhnUtils, 'luhnCheck')
-        .mockReturnValue(false);
-
-      const result = appController.verifyCreditCard(exampleNumber);
-      expect(luhnCheckSpy).toHaveBeenCalledWith(exampleNumber.candidate);
-      expect(result).toEqual({ cardIsValid: false });
     });
   });
 });

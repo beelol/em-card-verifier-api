@@ -1,4 +1,4 @@
-import { luhnCheck } from './luhnCheck';
+import { luhnCheck } from '../luhnCheck';
 
 const validVisa = '4532015112830366';
 const invalidVisa = '4532015112830367';
