@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { luhnCheck } from './utils/luhnCheck';
+import { verifyCreditCard } from './utils/verifyCreditCard';
 
 @Injectable()
 export class AppService {
   verifyCreditCard(cardNumber: string): boolean {
-    return luhnCheck(cardNumber);
+    return verifyCreditCard(cardNumber);
   }
 }
